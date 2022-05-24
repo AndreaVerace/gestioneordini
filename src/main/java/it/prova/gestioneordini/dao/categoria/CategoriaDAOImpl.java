@@ -42,7 +42,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		if(o == null)
 			throw new Exception ("Valore nullo");
 		
-		entityManager.remove(o);
+		entityManager.remove(entityManager.merge(o));
 	}
 
 	@Override

@@ -32,7 +32,9 @@ public class MyTest {
 			
 			//testUpdateOrdine(ordineServiceInstance);
 			
-			testAggiungiArticoloAOrdine(articoloServiceInstance, ordineServiceInstance);
+			//testAggiungiArticoloAOrdine(articoloServiceInstance, ordineServiceInstance);
+			
+			testRimuoviArticoloDaOrdine(articoloServiceInstance, ordineServiceInstance);
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -92,5 +94,16 @@ public class MyTest {
 		
 		//System.out.println(ordineServiceInstance.list().get(0).getArticoli());
 		
+	}
+	
+	private static void testRimuoviArticoloDaOrdine(ArticoloService articoloServiceInstance,OrdineService ordineServiceInstance) throws Exception {
+		
+		Articolo articoloDaEliminare = articoloServiceInstance.list().get(2);
+		
+		if(articoloDaEliminare.getOrdine() != null)
+			articoloServiceInstance.delete(articoloDaEliminare);
+		
+		else 
+			throw new Exception("Articolo non presente in nessun ordine.");	
 	}
 }
