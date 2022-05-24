@@ -9,9 +9,11 @@ import it.prova.gestioneordini.model.Ordine;
 
 public class OrdineServiceImpl implements OrdineService {
 
+	private OrdineDAO ordineDAO;
+	
 	@Override
 	public void setOrdineDAO(OrdineDAO ordineDAO) {
-		// TODO Auto-generated method stub
+		this.ordineDAO = ordineDAO;
 		
 	}
 

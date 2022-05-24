@@ -7,9 +7,11 @@ import it.prova.gestioneordini.model.Categoria;
 
 public class CategoriaServiceImpl implements CategoriaService {
 
+	private CategoriaDAO categoriaDAO;
+	
 	@Override
 	public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
-		// TODO Auto-generated method stub
+		this.categoriaDAO = categoriaDAO;
 		
 	}
 
