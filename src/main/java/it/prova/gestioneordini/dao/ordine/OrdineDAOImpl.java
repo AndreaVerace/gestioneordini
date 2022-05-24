@@ -17,31 +17,36 @@ public class OrdineDAOImpl implements OrdineDAO {
 
 	@Override
 	public Ordine get(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.find(Ordine.class, id);
 	}
 
 	@Override
 	public void update(Ordine o) throws Exception {
-		// TODO Auto-generated method stub
+		if(o == null)
+			throw new Exception ("Valore nullo");
 
+		o = entityManager.merge(o);
 	}
 
 	@Override
 	public void insert(Ordine o) throws Exception {
-		// TODO Auto-generated method stub
-
+		if(o == null)
+			throw new Exception ("Valore nullo");
+		
+		entityManager.persist(o);
 	}
 
 	@Override
 	public void delete(Ordine o) throws Exception {
-		// TODO Auto-generated method stub
-
+		if(o == null)
+			throw new Exception ("Valore nullo");
+		
+		entityManager.remove(o);
 	}
 
 	@Override
 	public void setEntityManager(EntityManager entityManager) {
-		// TODO Auto-generated method stub
+		this.entityManager = entityManager;
 
 	}
 

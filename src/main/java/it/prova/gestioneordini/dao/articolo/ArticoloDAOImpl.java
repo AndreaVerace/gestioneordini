@@ -17,31 +17,36 @@ public class ArticoloDAOImpl implements ArticoloDAO {
 
 	@Override
 	public Articolo get(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.find(Articolo.class, id);
 	}
 
 	@Override
 	public void update(Articolo o) throws Exception {
-		// TODO Auto-generated method stub
+		if(o == null)
+			throw new Exception ("Valore nullo");
+		o = entityManager.merge(o);
 
 	}
 
 	@Override
 	public void insert(Articolo o) throws Exception {
-		// TODO Auto-generated method stub
-
+		if(o == null)
+			throw new Exception ("Valore nullo");
+		
+		entityManager.persist(o);
 	}
 
 	@Override
 	public void delete(Articolo o) throws Exception {
-		// TODO Auto-generated method stub
+		if(o == null)
+			throw new Exception ("Valore nullo");
 
+		entityManager.remove(o);
 	}
 
 	@Override
 	public void setEntityManager(EntityManager entityManager) {
-		// TODO Auto-generated method stub
+		this.entityManager = entityManager;
 
 	}
 
