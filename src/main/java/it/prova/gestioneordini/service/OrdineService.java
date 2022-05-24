@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import it.prova.gestioneordini.dao.ordine.OrdineDAO;
+import it.prova.gestioneordini.model.Categoria;
 import it.prova.gestioneordini.model.Ordine;
 
 public interface OrdineService {
@@ -21,6 +22,6 @@ public interface OrdineService {
 
 	public void delete(Ordine o) throws Exception;
 
-	
+	public List<Ordine> voglioTuttiGliOrdiniDiQuellaCategoria(Categoria categoria) throws Exception;
 	
 }
