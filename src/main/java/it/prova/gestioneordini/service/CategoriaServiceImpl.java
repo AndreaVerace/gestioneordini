@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import it.prova.gestioneordini.dao.EntityManagerUtil;
 import it.prova.gestioneordini.dao.categoria.CategoriaDAO;
+import it.prova.gestioneordini.model.Articolo;
 import it.prova.gestioneordini.model.Categoria;
 
 public class CategoriaServiceImpl implements CategoriaService {
@@ -124,6 +125,33 @@ public class CategoriaServiceImpl implements CategoriaService {
 			EntityManagerUtil.closeEntityManager(entityManager);
 		}
 		
+	}
+
+	@Override
+	public void aggiungiArticolo(Categoria c, Articolo a) throws Exception {
+		
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+			entityManager.getTransaction().begin();
+			
+			// uso l'injection per il dao
+			categoriaDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			c = entityManager.merge(c);
+			a = entityManager.merge(a);
+			
+			a.getCategorie().add(c);
+			 
+			 entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 }

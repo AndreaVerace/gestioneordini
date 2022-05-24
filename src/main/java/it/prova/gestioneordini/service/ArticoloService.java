@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import it.prova.gestioneordini.dao.articolo.ArticoloDAO;
 import it.prova.gestioneordini.model.Articolo;
+import it.prova.gestioneordini.model.Categoria;
 
 public interface ArticoloService {
 
@@ -21,6 +22,6 @@ public interface ArticoloService {
 
 	public void delete(Articolo o) throws Exception;
 
-	
+	public void aggiungiCategoria(Categoria c,Articolo a) throws Exception;
 	
 }

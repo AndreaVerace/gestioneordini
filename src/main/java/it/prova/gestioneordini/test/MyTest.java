@@ -10,6 +10,7 @@ import java.util.Set;
 import it.prova.gestioneordini.dao.EntityManagerUtil;
 import it.prova.gestioneordini.dao.MyDaoFactory;
 import it.prova.gestioneordini.model.Articolo;
+import it.prova.gestioneordini.model.Categoria;
 import it.prova.gestioneordini.model.Ordine;
 import it.prova.gestioneordini.service.ArticoloService;
 import it.prova.gestioneordini.service.CategoriaService;
@@ -30,11 +31,13 @@ public class MyTest {
 			
 			// testInsertOrdine(ordineServiceInstance);
 			
-			//testUpdateOrdine(ordineServiceInstance);
+			// testUpdateOrdine(ordineServiceInstance);
 			
-			//testAggiungiArticoloAOrdine(articoloServiceInstance, ordineServiceInstance);
+			// testAggiungiArticoloAOrdine(articoloServiceInstance, ordineServiceInstance);
 			
-			testRimuoviArticoloDaOrdine(articoloServiceInstance, ordineServiceInstance);
+			// testRimuoviArticoloDaOrdine(articoloServiceInstance, ordineServiceInstance);
+			
+			testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance);
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -105,5 +108,16 @@ public class MyTest {
 		
 		else 
 			throw new Exception("Articolo non presente in nessun ordine.");	
+	}
+	
+	
+	private static void testAggiungiArticoloACategoria(ArticoloService articoloServiceInstance,CategoriaService categoriaServiceInstance)
+			throws Exception {
+		
+		Categoria categoriaUno = new Categoria("dispositivi elettronici","ANP983");
+		categoriaServiceInstance.insert(categoriaUno);
+		
+		categoriaServiceInstance.aggiungiArticolo(categoriaUno, articoloServiceInstance.list().get(0));
+		
 	}
 }
