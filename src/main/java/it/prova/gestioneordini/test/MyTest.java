@@ -37,7 +37,9 @@ public class MyTest {
 			
 			// testRimuoviArticoloDaOrdine(articoloServiceInstance, ordineServiceInstance);
 			
-			testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance);
+			// testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance);
+			
+			testAggiungiCategoriaAdArticolo(articoloServiceInstance, categoriaServiceInstance);
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -118,6 +120,13 @@ public class MyTest {
 		categoriaServiceInstance.insert(categoriaUno);
 		
 		categoriaServiceInstance.aggiungiArticolo(categoriaUno, articoloServiceInstance.list().get(0));
+	}
+	
+	private static void testAggiungiCategoriaAdArticolo(ArticoloService articoloServiceInstance,CategoriaService categoriaServiceInstance)
+			throws Exception {
+		
+		articoloServiceInstance.aggiungiCategoria(categoriaServiceInstance.list().get(0), articoloServiceInstance.list().get(1));
+		
 		
 	}
 }
