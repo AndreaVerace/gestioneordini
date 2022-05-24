@@ -60,5 +60,12 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
 	}
 
+	@Override
+	public List<Categoria> voglioTutteCategorieDiArticoliConDeterminatoOrdine(Ordine ordine) throws Exception {
+		TypedQuery<Categoria> query = entityManager.createQuery("select distinct c from Categoria c inner join c.articoli a inner join a.ordine o where o = ?1", Categoria.class);
+		query.setParameter(1, ordine);
+		return query.getResultList();
+	}
+
 
 }

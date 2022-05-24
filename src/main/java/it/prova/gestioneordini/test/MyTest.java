@@ -47,7 +47,9 @@ public class MyTest {
 			
 			// testRimuoviArticolo(articoloServiceInstance);
 			
-			testVoglioTuttiGliOrdiniDiQuellaCategoria(categoriaServiceInstance, articoloServiceInstance, ordineServiceInstance);
+			//testVoglioTuttiGliOrdiniDiQuellaCategoria(categoriaServiceInstance, articoloServiceInstance, ordineServiceInstance);
+			
+			testVoglioTutteCategorieDiArticoliConDeterminatoOrdine(categoriaServiceInstance, ordineServiceInstance);
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -148,12 +150,24 @@ public class MyTest {
 		articoloServiceInstance.delete(articoloServiceInstance.list().get(2));
 	}
 	
-	private static void testVoglioTuttiGliOrdiniDiQuellaCategoria(CategoriaService categoriaServiceInstance,ArticoloService articoloServiceInstance,OrdineService ordineServiceInstance) throws Exception {
+	private static void testVoglioTuttiGliOrdiniDiQuellaCategoria(CategoriaService categoriaServiceInstance,ArticoloService articoloServiceInstance,OrdineService ordineServiceInstance) 
+			throws Exception {
 		
 		categoriaServiceInstance.aggiungiArticolo(categoriaServiceInstance.list().get(0), articoloServiceInstance.list().get(2));
 		
 		List<Ordine> result = ordineServiceInstance.voglioTuttiGliOrdiniDiQuellaCategoria(categoriaServiceInstance.list().get(0));
 		
-		//System.out.println(result.size());
+		System.out.println(result.get(0).getId());
 	}
+	
+	private static void testVoglioTutteCategorieDiArticoliConDeterminatoOrdine(CategoriaService categoriaServiceInstance,OrdineService ordineServiceInstance) 
+			throws Exception {
+		
+		Ordine ordineInput = ordineServiceInstance.list().get(0);
+		
+		List<Categoria> result = categoriaServiceInstance.voglioTutteCategorieDiArticoliConDeterminatoOrdine(ordineInput);
+		
+		System.out.println(result.size());
+	}
+	
 }
