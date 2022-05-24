@@ -21,7 +21,6 @@ public interface OrdineService {
 
 	public void delete(Ordine o) throws Exception;
 
-	// questo mi serve per l'injection
-	public void setEntityManager(EntityManager entityManager);
+	
 	
 }

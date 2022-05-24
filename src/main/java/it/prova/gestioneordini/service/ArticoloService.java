@@ -21,7 +21,6 @@ public interface ArticoloService {
 
 	public void delete(Articolo o) throws Exception;
 
-	// questo mi serve per l'injection
-	public void setEntityManager(EntityManager entityManager);
+	
 	
 }
