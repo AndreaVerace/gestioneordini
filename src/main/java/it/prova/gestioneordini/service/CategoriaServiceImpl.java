@@ -114,8 +114,11 @@ public class CategoriaServiceImpl implements CategoriaService {
 			categoriaDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			 categoriaDAO.delete(o);
-			 
+			if(categoriaDAO.verificaSeCategoriaHaArticoli(o.getId()) == true)
+				categoriaDAO.delete(o);
+			else
+				throw new Exception("Impossibile eliminare categoria con articoli al suo interno.");
+			
 			 entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();

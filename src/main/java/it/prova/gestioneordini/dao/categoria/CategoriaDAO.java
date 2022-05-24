@@ -5,4 +5,6 @@ import it.prova.gestioneordini.model.Categoria;
 
 public interface CategoriaDAO extends IBaseDAO<Categoria> {
 
+	public boolean verificaSeCategoriaHaArticoli(long id) throws Exception;
+	
 }

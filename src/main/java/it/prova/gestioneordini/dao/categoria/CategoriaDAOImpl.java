@@ -3,9 +3,11 @@ package it.prova.gestioneordini.dao.categoria;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import antlr.actions.cpp.ActionLexerTokenTypes;
 import it.prova.gestioneordini.model.Categoria;
+import it.prova.gestioneordini.model.Ordine;
 
 public class CategoriaDAOImpl implements CategoriaDAO {
 
@@ -46,9 +48,17 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	}
 
 	@Override
+	public boolean verificaSeCategoriaHaArticoli(long id) throws Exception {
+		TypedQuery<Categoria> query = entityManager.createQuery("select c from Categoria c inner join c.articoli a where a.id=?1 ", Categoria.class);
+		query.setParameter(1, id);
+		return query.getResultList().isEmpty();
+	}
+	
+	@Override
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 
 	}
+
 
 }

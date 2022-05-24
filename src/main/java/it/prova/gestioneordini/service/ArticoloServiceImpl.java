@@ -114,8 +114,11 @@ public class ArticoloServiceImpl implements ArticoloService {
 			articoloDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			 articoloDAO.delete(o);
-			 
+			if(articoloDAO.verificaSeArticoloHaCategorie(o.getId())== false)
+				articoloDAO.delete(o);
+			else
+				throw new Exception("Impossibile eliminare articolo con categorie al suo interno.");
+				
 			 entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();

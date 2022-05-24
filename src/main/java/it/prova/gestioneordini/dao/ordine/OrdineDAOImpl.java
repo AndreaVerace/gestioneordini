@@ -3,6 +3,7 @@ package it.prova.gestioneordini.dao.ordine;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import it.prova.gestioneordini.model.Ordine;
 
@@ -44,6 +45,12 @@ public class OrdineDAOImpl implements OrdineDAO {
 		entityManager.remove(entityManager.merge(o));
 	}
 
+	public boolean verificaSeOrdineHaArticoli(long id) throws Exception {
+		TypedQuery<Ordine> query = entityManager.createQuery("select o from Ordine o inner join o.articoli a where a.id=?1 ", Ordine.class);
+		query.setParameter(1, id);
+		return query.getResultList().isEmpty();
+	}
+	
 	@Override
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;

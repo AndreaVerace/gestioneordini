@@ -112,8 +112,10 @@ public class OrdineServiceImpl implements OrdineService {
 			ordineDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			 ordineDAO.delete(o);
-			 
+			if(ordineDAO.verificaSeOrdineHaArticoli(o.getId()) == false)
+				ordineDAO.delete(o);
+			else 
+				throw new Exception ("L'ordine contiene articoli e quindi non puo essere eliminato.");
 			 entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
