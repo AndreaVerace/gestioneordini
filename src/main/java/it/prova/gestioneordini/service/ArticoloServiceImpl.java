@@ -157,6 +157,24 @@ public class ArticoloServiceImpl implements ArticoloService {
 		
 	}
 
+	@Override
+	public int voglioSommaPrezziDiArticoliInQuellaCategoria(Categoria categoria) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+			// uso l'injection per il dao
+			articoloDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			return articoloDAO.voglioSommaPrezziDiArticoliInQuellaCategoria(categoria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
+	}
+
 	
 
 }

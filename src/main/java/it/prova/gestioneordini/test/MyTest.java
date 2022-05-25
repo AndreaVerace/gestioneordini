@@ -49,7 +49,11 @@ public class MyTest {
 			
 			//testVoglioTuttiGliOrdiniDiQuellaCategoria(categoriaServiceInstance, articoloServiceInstance, ordineServiceInstance);
 			
-			testVoglioTutteCategorieDiArticoliConDeterminatoOrdine(categoriaServiceInstance, ordineServiceInstance);
+			// testVoglioTutteCategorieDiArticoliConDeterminatoOrdine(categoriaServiceInstance, ordineServiceInstance);
+			 
+			// testVoglioSommaPrezziDiArticoliInQuellaCategoria(categoriaServiceInstance, articoloServiceInstance);
+			
+			testVoglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(categoriaServiceInstance, ordineServiceInstance);
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -170,4 +174,21 @@ public class MyTest {
 		System.out.println(result.size());
 	}
 	
+	
+	private static void testVoglioSommaPrezziDiArticoliInQuellaCategoria(CategoriaService categoriaServiceInstance,ArticoloService articoloServiceInstance) throws Exception {
+		
+		Categoria categoriaDaImmettere = categoriaServiceInstance.list().get(0);
+		
+		int result = articoloServiceInstance.voglioSommaPrezziDiArticoliInQuellaCategoria(categoriaDaImmettere);
+		
+		System.out.println(result);
+	}
+	
+	private static void testVoglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(CategoriaService categoriaServiceInstance,OrdineService ordineServiceInstance) throws Exception {
+		
+		Ordine ordineDaRicavare = ordineServiceInstance
+				.voglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(categoriaServiceInstance.list().get(0));
+		
+		System.out.println(ordineDaRicavare.getNomeDestinatario() + " , " + ordineDaRicavare.getDataSpedizione());
+	}
 }

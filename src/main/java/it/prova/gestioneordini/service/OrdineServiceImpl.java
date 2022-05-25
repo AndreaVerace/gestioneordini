@@ -1,5 +1,6 @@
 package it.prova.gestioneordini.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -138,6 +139,24 @@ public class OrdineServiceImpl implements OrdineService {
 
 			// eseguo quello che realmente devo fare
 			return ordineDAO.voglioTuttiGliOrdiniDiQuellaCategoria(categoria);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
+	}
+
+	@Override
+	public Ordine voglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(Categoria categoria) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+			// uso l'injection per il dao
+			ordineDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			return ordineDAO.voglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(categoria);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

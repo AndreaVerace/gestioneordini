@@ -1,5 +1,6 @@
 package it.prova.gestioneordini.dao.ordine;
 
+import java.util.Date;
 import java.util.List;
 
 import it.prova.gestioneordini.dao.IBaseDAO;
@@ -11,5 +12,9 @@ public interface OrdineDAO extends IBaseDAO<Ordine> {
 	public boolean verificaSeOrdineHaArticoli(long id) throws Exception;
 	
 	public List<Ordine> voglioTuttiGliOrdiniDiQuellaCategoria(Categoria categoria) throws Exception;
+	
+	public Ordine voglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(Categoria categoria) throws Exception;
+
+	
 
 }

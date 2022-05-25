@@ -1,5 +1,6 @@
 package it.prova.gestioneordini.dao.ordine;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -64,6 +65,15 @@ public class OrdineDAOImpl implements OrdineDAO {
 		TypedQuery<Ordine> query = entityManager.createQuery("select distinct o from Ordine o inner join o.articoli a inner join a.categorie c where c = ?1", Ordine.class);
 		query.setParameter(1, categoria);
 		return query.getResultList();
+	}
+
+	@Override
+	public Ordine voglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(Categoria categoria) throws Exception {
+		TypedQuery<Ordine> query = entityManager.createQuery("select o From Ordine o inner join o.articoli a inner join a.categorie c where c = ?1  group by o.dataSpedizione", Ordine.class);
+		query.setParameter(1, categoria);
+		
+		
+		return  query.getResultList().get(query.getResultList().size() - 1);
 	}
 
 }

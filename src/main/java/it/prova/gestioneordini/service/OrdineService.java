@@ -1,5 +1,6 @@
 package it.prova.gestioneordini.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -23,5 +24,7 @@ public interface OrdineService {
 	public void delete(Ordine o) throws Exception;
 
 	public List<Ordine> voglioTuttiGliOrdiniDiQuellaCategoria(Categoria categoria) throws Exception;
+	
+	public Ordine voglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(Categoria categoria) throws Exception;
 	
 }

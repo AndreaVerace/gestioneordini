@@ -24,4 +24,6 @@ public interface ArticoloService {
 
 	public void aggiungiCategoria(Categoria c,Articolo a) throws Exception;
 	
+	public int voglioSommaPrezziDiArticoliInQuellaCategoria(Categoria categoria) throws Exception;
+	
 }
