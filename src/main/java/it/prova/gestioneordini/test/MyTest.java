@@ -66,7 +66,7 @@ public class MyTest {
 			
 			// testVoglioSommaDiArticoliMarioRossi(ordineServiceInstance, articoloServiceInstance);
 			
-			testVoglioIndirizziDiOrdiniICuiArticoliHannoNumSerialeCheE(categoriaServiceInstance, ordineServiceInstance, articoloServiceInstance);
+			// testVoglioIndirizziDiOrdiniICuiArticoliHannoNumSerialeCheE(categoriaServiceInstance, ordineServiceInstance, articoloServiceInstance);
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -172,29 +172,17 @@ public class MyTest {
 		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
 		
 		
-		
-		
-		
 		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("10-09-2022");
 		Articolo articoloDaInserire = new Articolo("lavatrice",9,900);
 		articoloDaInserire.setDataInserimento(dataDiArticolo);
 		articoloDaInserire.setOrdine(ordineDaInserire);
-		
-		Set<Articolo> articoli = new HashSet<Articolo>();
-		articoli.add(articoloDaInserire);
-		
-		ordineDaInserire.setArticoli(articoli);
-		
-		
+
+			
 		ordineServiceInstance.insert(ordineDaInserire);
 		articoloServiceInstance.insert(articoloDaInserire);
 		
-		
-		
-		
 		if(articoloDaInserire != null && ordineDaInserire != null)
-			ordineServiceInstance.rimuoviArticolo(articoloDaInserire, ordineDaInserire);
-				
+			ordineServiceInstance.rimuoviArticolo(articoloDaInserire, ordineDaInserire);	
 	}
 	
 	
@@ -335,8 +323,10 @@ public class MyTest {
 		
 		List<String> result = ordineServiceInstance.voglioIndirizziDiOrdiniICuiArticoliHannoNumSerialeCheE(contenuta);
 		
-		System.out.println(result.size());
-		
-		
+		System.out.println(result.get(0));
 	}
+	
+	
+	
 }
+
