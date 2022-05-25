@@ -33,7 +33,7 @@ public class MyTest {
 			
 			// testUpdateOrdine(ordineServiceInstance);
 			
-			// testAggiungiArticoloAOrdine(articoloServiceInstance, ordineServiceInstance);
+			 testAggiungiArticoloAOrdine(articoloServiceInstance, ordineServiceInstance);
 			
 			// testRimuoviArticoloDaOrdine(articoloServiceInstance, ordineServiceInstance);
 			
@@ -51,7 +51,7 @@ public class MyTest {
 			
 			// testVoglioTutteCategorieDiArticoliConDeterminatoOrdine(categoriaServiceInstance, ordineServiceInstance);
 			 
-			 testVoglioSommaPrezziDiArticoliInQuellaCategoria(categoriaServiceInstance, articoloServiceInstance);
+			// testVoglioSommaPrezziDiArticoliInQuellaCategoria(categoriaServiceInstance, articoloServiceInstance);
 			
 			// testVoglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(categoriaServiceInstance, ordineServiceInstance);
 			
@@ -104,14 +104,20 @@ public class MyTest {
 		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("21-06-2022");
 		Articolo articoloDaInserire = new Articolo("pc huawei",2,600);
 		articoloDaInserire.setDataInserimento(dataDiArticolo);
-		articoloDaInserire.setOrdine(ordineServiceInstance.list().get(0));
 		
+		Ordine ordine = new Ordine("Andrea","Via Torregaveta");
+		ordine.setDataSpedizione(new SimpleDateFormat("dd-MM-yyyy").parse("23-06-2022"));
 		
+		articoloDaInserire.setOrdine(ordine);
+		
+		ordineServiceInstance.insert(ordine);
 		articoloServiceInstance.insert(articoloDaInserire);
 		
 		
 		
-		//System.out.println(ordineServiceInstance.list().get(0).getArticoli());
+		/*System.out.println(articoloServiceInstance.list()
+				.get(articoloServiceInstance.list().size() -1)
+				.getOrdine());*/
 		
 	}
 	
