@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+
+import javax.persistence.EntityManager;
 
 import org.hibernate.sql.Delete;
 
@@ -26,6 +29,8 @@ public class MyTest {
 		ArticoloService articoloServiceInstance = MyServiceFactory.getArticoloServiceInstance();
 		CategoriaService categoriaServiceInstance = MyServiceFactory.getCategoriaServiceInstance();
 		OrdineService ordineServiceInstance = MyServiceFactory.getOrdineServiceInstance();
+		
+		
 		
 		try {
 			
@@ -128,12 +133,14 @@ public class MyTest {
 	
 	private static void testRimuoviArticoloDaOrdine(ArticoloService articoloServiceInstance,OrdineService ordineServiceInstance) throws Exception {
 		
-		Articolo articoloDaEliminare = articoloServiceInstance.list().get(5);
+		Articolo articoloDaDisassociare = articoloServiceInstance.list().get(5);
+		Ordine ordineIdDellArticoloDaDisassociare = articoloDaDisassociare.getOrdine();
 		
-		
-		if(articoloDaEliminare.getOrdine() != null)
-			articoloServiceInstance.delete(articoloDaEliminare);
-		
+		if(articoloDaDisassociare.getOrdine() != null) {
+			ordineIdDellArticoloDaDisassociare = null;
+			articoloDaDisassociare.setOrdine(ordineIdDellArticoloDaDisassociare);
+			articoloServiceInstance.update(articoloDaDisassociare);
+		}
 		else 
 			throw new Exception("Articolo non presente in nessun ordine.");	
 	}
