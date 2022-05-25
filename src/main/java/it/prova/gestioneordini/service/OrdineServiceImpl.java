@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import it.prova.gestioneordini.dao.EntityManagerUtil;
 import it.prova.gestioneordini.dao.ordine.OrdineDAO;
+import it.prova.gestioneordini.exception.CustomException;
 import it.prova.gestioneordini.model.Categoria;
 import it.prova.gestioneordini.model.Ordine;
 
@@ -117,7 +118,7 @@ public class OrdineServiceImpl implements OrdineService {
 			if(ordineDAO.verificaSeOrdineHaArticoli(o.getId()) == false)
 				ordineDAO.delete(o);
 			else 
-				throw new Exception ("L'ordine contiene articoli e quindi non puo essere eliminato.");
+				throw new CustomException ("L'ordine contiene articoli e quindi non puo essere eliminato.");
 			 entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();

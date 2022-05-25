@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.sql.Delete;
+
 import it.prova.gestioneordini.dao.EntityManagerUtil;
 import it.prova.gestioneordini.dao.MyDaoFactory;
 import it.prova.gestioneordini.model.Articolo;
@@ -33,9 +35,9 @@ public class MyTest {
 			
 			// testUpdateOrdine(ordineServiceInstance);
 			
-			 testAggiungiArticoloAOrdine(articoloServiceInstance, ordineServiceInstance);
+			// testAggiungiArticoloAOrdine(articoloServiceInstance, ordineServiceInstance);
 			
-			// testRimuoviArticoloDaOrdine(articoloServiceInstance, ordineServiceInstance);
+			 testRimuoviArticoloDaOrdine(articoloServiceInstance, ordineServiceInstance);
 			
 			// testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance);
 			
@@ -102,15 +104,18 @@ public class MyTest {
 	private static void testAggiungiArticoloAOrdine(ArticoloService articoloServiceInstance,OrdineService ordineServiceInstance) throws Exception {
 		
 		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("21-06-2022");
-		Articolo articoloDaInserire = new Articolo("pc huawei",2,600);
+		Articolo articoloDaInserire = new Articolo("lavastoviglie",9,900);
 		articoloDaInserire.setDataInserimento(dataDiArticolo);
 		
-		Ordine ordine = new Ordine("Andrea","Via Torregaveta");
-		ordine.setDataSpedizione(new SimpleDateFormat("dd-MM-yyyy").parse("23-06-2022"));
+		
+		
+		
+		Ordine ordine = ordineServiceInstance.list().get(2);
+		articoloDaInserire.setOrdine(ordine);
 		
 		articoloDaInserire.setOrdine(ordine);
 		
-		ordineServiceInstance.insert(ordine);
+		//ordineServiceInstance.insert(ordine);
 		articoloServiceInstance.insert(articoloDaInserire);
 		
 		
@@ -123,7 +128,8 @@ public class MyTest {
 	
 	private static void testRimuoviArticoloDaOrdine(ArticoloService articoloServiceInstance,OrdineService ordineServiceInstance) throws Exception {
 		
-		Articolo articoloDaEliminare = articoloServiceInstance.list().get(2);
+		Articolo articoloDaEliminare = articoloServiceInstance.list().get(5);
+		
 		
 		if(articoloDaEliminare.getOrdine() != null)
 			articoloServiceInstance.delete(articoloDaEliminare);

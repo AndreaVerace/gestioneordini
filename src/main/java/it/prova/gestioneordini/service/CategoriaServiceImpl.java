@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import it.prova.gestioneordini.dao.EntityManagerUtil;
 import it.prova.gestioneordini.dao.categoria.CategoriaDAO;
+import it.prova.gestioneordini.exception.CustomException;
 import it.prova.gestioneordini.model.Articolo;
 import it.prova.gestioneordini.model.Categoria;
 import it.prova.gestioneordini.model.Ordine;
@@ -118,7 +119,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 			if(categoriaDAO.verificaSeCategoriaHaArticoli(o.getId()) == true)
 				categoriaDAO.delete(o);
 			else
-				throw new Exception("Impossibile eliminare categoria con articoli al suo interno.");
+				throw new CustomException("Impossibile eliminare categoria con articoli al suo interno.");
 			
 			 entityManager.getTransaction().commit();
 		} catch (Exception e) {
@@ -175,5 +176,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 			EntityManagerUtil.closeEntityManager(entityManager);
 		}
 	}
+	
+	
 
 }
