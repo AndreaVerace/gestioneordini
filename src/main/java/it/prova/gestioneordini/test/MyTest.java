@@ -64,7 +64,9 @@ public class MyTest {
 			
 			// testVoglioCodiciDiCategoriaDiOrdiniFebbraio(categoriaServiceInstance, ordineServiceInstance, articoloServiceInstance);
 			
-			testVoglioSommaDiArticoliMarioRossi(ordineServiceInstance, articoloServiceInstance);
+			// testVoglioSommaDiArticoliMarioRossi(ordineServiceInstance, articoloServiceInstance);
+			
+			testVoglioIndirizziDiOrdiniICuiArticoliHannoNumSerialeCheE(categoriaServiceInstance, ordineServiceInstance, articoloServiceInstance);
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -306,5 +308,35 @@ public class MyTest {
 		long result = articoloServiceInstance.voglioSommaDiArticoliMarioRossi();
 		
 		System.out.println(result);
+	}
+	
+	
+	private static void testVoglioIndirizziDiOrdiniICuiArticoliHannoNumSerialeCheE(CategoriaService categoriaServiceInstance,OrdineService ordineServiceInstance,ArticoloService articoloServiceInstance)
+		throws Exception {
+		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("07-02-2022");
+		Ordine ordineDaInserire = new Ordine("Alessandro Magno","Via Del Pino");
+		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
+		
+		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("10-02-2022");
+		Articolo articoloDaInserire = new Articolo("nokia 3369",10,50);
+		articoloDaInserire.setDataInserimento(dataDiArticolo);
+		articoloDaInserire.setOrdine(ordineDaInserire);
+		
+		Categoria categoriaDaInserire = new Categoria("carta stampata","am90843");
+		
+		ordineServiceInstance.insert(ordineDaInserire);
+		articoloServiceInstance.insert(articoloDaInserire);
+		categoriaServiceInstance.insert(categoriaDaInserire);
+		
+		
+		categoriaServiceInstance.aggiungiArticolo(categoriaDaInserire, articoloDaInserire);
+		
+		String contenuta = "ok";
+		
+		List<String> result = ordineServiceInstance.voglioIndirizziDiOrdiniICuiArticoliHannoNumSerialeCheE(contenuta);
+		
+		System.out.println(result.size());
+		
+		
 	}
 }
