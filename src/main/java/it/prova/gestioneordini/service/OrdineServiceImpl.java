@@ -177,8 +177,9 @@ public class OrdineServiceImpl implements OrdineService {
 			ordineDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			articoloInput = entityManager.merge(articoloInput);
+			
 			ordineInput = entityManager.merge(ordineInput);
+			articoloInput = entityManager.merge(articoloInput);
 			
 			ordineInput.getArticoli().remove(articoloInput);
 			

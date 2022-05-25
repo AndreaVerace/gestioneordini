@@ -112,16 +112,23 @@ public class MyTest {
 		Articolo articoloDaInserire = new Articolo("lavastoviglie",9,900);
 		articoloDaInserire.setDataInserimento(dataDiArticolo);
 		
+
+		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("01-09-2020");
+		Ordine ordineDaInserire = new Ordine("Andrea","Via Torregaveta");
+		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
 		
+		ordineServiceInstance.insert(ordineDaInserire);
 		
-		
+		/*
 		Ordine ordine = ordineServiceInstance.list().get(2);
 		articoloDaInserire.setOrdine(ordine);
 		
 		articoloDaInserire.setOrdine(ordine);
 		
 		//ordineServiceInstance.insert(ordine);
-		articoloServiceInstance.insert(articoloDaInserire);
+		articoloServiceInstance.insert(articoloDaInserire);*/
+		
+		
 		
 		
 		
@@ -148,7 +155,8 @@ public class MyTest {
 		Ordine ordineDaInserire = new Ordine("Andrea","Via Torregaveta");
 		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
 		
-		ordineServiceInstance.insert(ordineDaInserire);
+		
+		
 		
 		
 		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("10-09-2022");
@@ -156,6 +164,12 @@ public class MyTest {
 		articoloDaInserire.setDataInserimento(dataDiArticolo);
 		articoloDaInserire.setOrdine(ordineDaInserire);
 		
+		Set<Articolo> articoli = new HashSet<Articolo>();
+		articoli.add(articoloDaInserire);
+		
+		ordineDaInserire.setArticoli(articoli);
+		
+		ordineServiceInstance.insert(ordineDaInserire);
 		articoloServiceInstance.insert(articoloDaInserire);
 		
 		
