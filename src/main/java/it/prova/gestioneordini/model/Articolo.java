@@ -40,7 +40,7 @@ public class Articolo {
 	private Date dataInserimento;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ordine_id")
+	@JoinColumn(name = "ordine_id",nullable = false)
 	private Ordine ordine;
 	
 	

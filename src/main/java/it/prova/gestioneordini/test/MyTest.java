@@ -133,7 +133,7 @@ public class MyTest {
 	
 	private static void testRimuoviArticoloDaOrdine(ArticoloService articoloServiceInstance,OrdineService ordineServiceInstance) throws Exception {
 		
-		Articolo articoloDaDisassociare = articoloServiceInstance.list().get(5);
+		/*Articolo articoloDaDisassociare = articoloServiceInstance.list().get(5);
 		Ordine ordineIdDellArticoloDaDisassociare = articoloDaDisassociare.getOrdine();
 		
 		if(articoloDaDisassociare.getOrdine() != null) {
@@ -142,7 +142,26 @@ public class MyTest {
 			articoloServiceInstance.update(articoloDaDisassociare);
 		}
 		else 
-			throw new Exception("Articolo non presente in nessun ordine.");	
+			throw new Exception("Articolo non presente in nessun ordine.");	*/
+		
+		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("01-09-2020");
+		Ordine ordineDaInserire = new Ordine("Andrea","Via Torregaveta");
+		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
+		
+		ordineServiceInstance.insert(ordineDaInserire);
+		
+		
+		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("10-09-2022");
+		Articolo articoloDaInserire = new Articolo("lavastoviglie",9,900);
+		articoloDaInserire.setDataInserimento(dataDiArticolo);
+		articoloDaInserire.setOrdine(ordineDaInserire);
+		
+		articoloServiceInstance.insert(articoloDaInserire);
+		
+		
+		if(articoloDaInserire != null && ordineDaInserire != null)
+			ordineServiceInstance.rimuoviArticolo(articoloDaInserire,ordineDaInserire);
+				
 	}
 	
 	
