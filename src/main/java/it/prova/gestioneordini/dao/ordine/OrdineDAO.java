@@ -14,6 +14,8 @@ public interface OrdineDAO extends IBaseDAO<Ordine> {
 	public List<Ordine> voglioTuttiGliOrdiniDiQuellaCategoria(Categoria categoria) throws Exception;
 	
 	public Ordine voglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(Categoria categoria) throws Exception;
+	
+	public List<String> voglioIndirizziDiOrdiniICuiArticoliHannoNumSerialeCheE(String codiceInput) throws Exception;
 
 	
 

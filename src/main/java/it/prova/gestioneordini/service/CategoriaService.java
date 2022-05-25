@@ -24,5 +24,7 @@ public interface CategoriaService {
 	public void aggiungiArticolo(Categoria c,Articolo a) throws Exception;
 	
 	public List<Categoria> voglioTutteCategorieDiArticoliConDeterminatoOrdine(Ordine ordine) throws Exception;
+	
+	public List<String> voglioCodiciDiCategoriaDiOrdiniFebbraio() throws Exception;
 
 }

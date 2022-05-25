@@ -12,4 +12,6 @@ public interface CategoriaDAO extends IBaseDAO<Categoria> {
 	
 	public List<Categoria> voglioTutteCategorieDiArticoliConDeterminatoOrdine(Ordine ordine) throws Exception;
 	
+	public List<String> voglioCodiciDiCategoriaDiOrdiniFebbraio() throws Exception;
+	
 }

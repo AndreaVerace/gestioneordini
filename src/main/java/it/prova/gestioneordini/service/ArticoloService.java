@@ -26,4 +26,6 @@ public interface ArticoloService {
 	
 	public long voglioSommaPrezziDiArticoliInQuellaCategoria(Categoria categoria) throws Exception;
 	
+	public long voglioSommaDiArticoliMarioRossi() throws Exception;
+	
 }

@@ -42,7 +42,7 @@ public class MyTest {
 			
 			// testAggiungiArticoloAOrdine(articoloServiceInstance, ordineServiceInstance);
 			
-			 testRimuoviArticoloDaOrdine(articoloServiceInstance, ordineServiceInstance);
+			// testRimuoviArticoloDaOrdine(articoloServiceInstance, ordineServiceInstance);
 			
 			// testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance);
 			
@@ -61,6 +61,10 @@ public class MyTest {
 			// testVoglioSommaPrezziDiArticoliInQuellaCategoria(categoriaServiceInstance, articoloServiceInstance);
 			
 			// testVoglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(categoriaServiceInstance, ordineServiceInstance);
+			
+			// testVoglioCodiciDiCategoriaDiOrdiniFebbraio(categoriaServiceInstance, ordineServiceInstance, articoloServiceInstance);
+			
+			testVoglioSommaDiArticoliMarioRossi(ordineServiceInstance, articoloServiceInstance);
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -112,12 +116,22 @@ public class MyTest {
 		Articolo articoloDaInserire = new Articolo("lavastoviglie",9,900);
 		articoloDaInserire.setDataInserimento(dataDiArticolo);
 		
+		Set<Articolo> articoli = new HashSet<Articolo>();
+		articoli.add(articoloDaInserire);
 
 		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("01-09-2020");
 		Ordine ordineDaInserire = new Ordine("Andrea","Via Torregaveta");
 		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
 		
+		articoloDaInserire.setOrdine(ordineDaInserire);
+		ordineDaInserire.setArticoli(articoli);
+		
+		
 		ordineServiceInstance.insert(ordineDaInserire);
+		articoloServiceInstance.insert(articoloDaInserire);
+		
+		ordineServiceInstance.aggiungiArticolo(articoloDaInserire, ordineDaInserire);
+		
 		
 		/*
 		Ordine ordine = ordineServiceInstance.list().get(2);
@@ -152,7 +166,7 @@ public class MyTest {
 			throw new Exception("Articolo non presente in nessun ordine.");	*/
 		
 		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("01-09-2020");
-		Ordine ordineDaInserire = new Ordine("Andrea","Via Torregaveta");
+		Ordine ordineDaInserire = new Ordine("Giovanni","Via Ponzio");
 		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
 		
 		
@@ -160,7 +174,7 @@ public class MyTest {
 		
 		
 		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("10-09-2022");
-		Articolo articoloDaInserire = new Articolo("lavastoviglie",9,900);
+		Articolo articoloDaInserire = new Articolo("lavatrice",9,900);
 		articoloDaInserire.setDataInserimento(dataDiArticolo);
 		articoloDaInserire.setOrdine(ordineDaInserire);
 		
@@ -169,12 +183,15 @@ public class MyTest {
 		
 		ordineDaInserire.setArticoli(articoli);
 		
+		
 		ordineServiceInstance.insert(ordineDaInserire);
 		articoloServiceInstance.insert(articoloDaInserire);
 		
 		
+		
+		
 		if(articoloDaInserire != null && ordineDaInserire != null)
-			ordineServiceInstance.rimuoviArticolo(articoloDaInserire,ordineDaInserire);
+			ordineServiceInstance.rimuoviArticolo(articoloDaInserire, ordineDaInserire);
 				
 	}
 	
@@ -242,5 +259,52 @@ public class MyTest {
 				.voglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(categoriaServiceInstance.list().get(0));
 		
 		System.out.println(ordineDaRicavare.getNomeDestinatario() + " , " + ordineDaRicavare.getDataSpedizione());
+	}
+	
+	private static void testVoglioCodiciDiCategoriaDiOrdiniFebbraio(CategoriaService categoriaServiceInstance,OrdineService ordineServiceInstance,ArticoloService articoloServiceInstance)
+		throws Exception {
+		
+		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("07-02-2022");
+		Ordine ordineDaInserire = new Ordine("ALDO","Via Martini");
+		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
+		
+		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("10-02-2022");
+		Articolo articoloDaInserire = new Articolo("il mattino",90,100);
+		articoloDaInserire.setDataInserimento(dataDiArticolo);
+		articoloDaInserire.setOrdine(ordineDaInserire);
+		
+		Categoria categoriaDaInserire = new Categoria("carta stampata","LAO639BD");
+		
+		
+		ordineServiceInstance.insert(ordineDaInserire);
+		articoloServiceInstance.insert(articoloDaInserire);
+		categoriaServiceInstance.insert(categoriaDaInserire);
+		
+		categoriaServiceInstance.aggiungiArticolo(categoriaDaInserire, articoloDaInserire);
+		
+		
+		
+		List<String> result = categoriaServiceInstance.voglioCodiciDiCategoriaDiOrdiniFebbraio();
+		
+		System.out.println(result.size());
+	}
+	
+	private static void testVoglioSommaDiArticoliMarioRossi(OrdineService ordineServiceInstance,ArticoloService articoloServiceInstance)
+			throws Exception {
+		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("07-02-2022");
+		Ordine ordineDaInserire = new Ordine("Mario Rossi","Via Pollenatrocchia");
+		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
+		
+		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("10-02-2022");
+		Articolo articoloDaInserire = new Articolo("il mattino",90,100);
+		articoloDaInserire.setDataInserimento(dataDiArticolo);
+		articoloDaInserire.setOrdine(ordineDaInserire);
+		
+		ordineServiceInstance.insert(ordineDaInserire);
+		articoloServiceInstance.insert(articoloDaInserire);
+		
+		long result = articoloServiceInstance.voglioSommaDiArticoliMarioRossi();
+		
+		System.out.println(result);
 	}
 }

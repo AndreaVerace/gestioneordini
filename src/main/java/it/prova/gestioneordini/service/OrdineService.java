@@ -32,4 +32,6 @@ public interface OrdineService {
 	
 	public void aggiungiArticolo(Articolo a,Ordine o) throws Exception;
 	
+	public List<String> voglioIndirizziDiOrdiniICuiArticoliHannoNumSerialeCheE(String codiceInput) throws Exception;
+	
 }
