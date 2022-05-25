@@ -40,8 +40,9 @@ public class Articolo {
 	private Date dataInserimento;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ordine_id")
+	@JoinColumn(name = "ordine_id",nullable = false)
 	private Ordine ordine;
+	
 	
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
 	@JoinTable(name = "articolo_categoria", joinColumns = @JoinColumn(name = "articolo_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "ID"))

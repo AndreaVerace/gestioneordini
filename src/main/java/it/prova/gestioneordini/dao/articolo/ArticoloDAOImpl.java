@@ -61,11 +61,11 @@ public class ArticoloDAOImpl implements ArticoloDAO {
 	}
 
 	@Override
-	public int voglioSommaPrezziDiArticoliInQuellaCategoria(Categoria categoria) throws Exception {
-		TypedQuery<Articolo> query =  entityManager.createQuery("select SUM(a.prezzoSingolo) from Articolo a inner join a.categorie c where c = ?1",Articolo.class);
+	public long voglioSommaPrezziDiArticoliInQuellaCategoria(Categoria categoria) throws Exception {
+		TypedQuery<Long> query = entityManager.createQuery("select SUM(a.prezzoSingolo) from Articolo a inner join a.categorie c where c = ?1",Long.class);
 		query.setParameter(1, categoria);
 		
-		int result =  query.getFirstResult();
+		long result =  query.getResultList().get(0);
 		return result;
 		
 	}

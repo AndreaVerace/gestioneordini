@@ -158,7 +158,7 @@ public class ArticoloServiceImpl implements ArticoloService {
 	}
 
 	@Override
-	public int voglioSommaPrezziDiArticoliInQuellaCategoria(Categoria categoria) throws Exception {
+	public long voglioSommaPrezziDiArticoliInQuellaCategoria(Categoria categoria) throws Exception {
 		EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
 		try {

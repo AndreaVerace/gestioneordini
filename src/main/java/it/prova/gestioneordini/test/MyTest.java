@@ -51,9 +51,9 @@ public class MyTest {
 			
 			// testVoglioTutteCategorieDiArticoliConDeterminatoOrdine(categoriaServiceInstance, ordineServiceInstance);
 			 
-			// testVoglioSommaPrezziDiArticoliInQuellaCategoria(categoriaServiceInstance, articoloServiceInstance);
+			 testVoglioSommaPrezziDiArticoliInQuellaCategoria(categoriaServiceInstance, articoloServiceInstance);
 			
-			testVoglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(categoriaServiceInstance, ordineServiceInstance);
+			// testVoglioOrdineConSpedizionePiuRecenteDiQuellaCategoria(categoriaServiceInstance, ordineServiceInstance);
 			
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -179,7 +179,7 @@ public class MyTest {
 		
 		Categoria categoriaDaImmettere = categoriaServiceInstance.list().get(0);
 		
-		int result = articoloServiceInstance.voglioSommaPrezziDiArticoliInQuellaCategoria(categoriaDaImmettere);
+		long result = articoloServiceInstance.voglioSommaPrezziDiArticoliInQuellaCategoria(categoriaDaImmettere);
 		
 		System.out.println(result);
 	}
