@@ -34,25 +34,25 @@ public class MyTest {
 		
 		try {
 			
-			// testListOrdine(ordineServiceInstance);
+			 testListOrdine(ordineServiceInstance);
 			
-			// testInsertOrdine(ordineServiceInstance);
+			 testInsertOrdine(ordineServiceInstance);
 			
-			// testUpdateOrdine(ordineServiceInstance);
+			 testUpdateOrdine(ordineServiceInstance);
 			
-			// testAggiungiArticoloAOrdine(articoloServiceInstance, ordineServiceInstance);
+			 testAggiungiArticoloAOrdine(articoloServiceInstance, ordineServiceInstance);
 			
 			// testRimuoviArticoloDaOrdine(articoloServiceInstance, ordineServiceInstance);
 			
-			// testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance);
+			 testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 			
-			// testAggiungiCategoriaAdArticolo(articoloServiceInstance, categoriaServiceInstance);
+			 testAggiungiCategoriaAdArticolo(articoloServiceInstance, categoriaServiceInstance,ordineServiceInstance);
 			
-			// testRimuoviOrdine(ordineServiceInstance);
+			 testRimuoviOrdine(ordineServiceInstance);
 			
-			// testRimuoviCategoria(categoriaServiceInstance);
+			 testRimuoviCategoria(categoriaServiceInstance);
 			
-			// testRimuoviArticolo(articoloServiceInstance);
+			 testRimuoviArticolo(articoloServiceInstance,ordineServiceInstance);
 			
 			//testVoglioTuttiGliOrdiniDiQuellaCategoria(categoriaServiceInstance, articoloServiceInstance, ordineServiceInstance);
 			
@@ -79,41 +79,59 @@ public class MyTest {
 	
 	
 	private static void testListOrdine(OrdineService ordineServiceInstance) throws Exception {
+		System.out.println("----------INIZIO TEST LIST ORDINE----------------- ");
+		
 		List<Ordine> result = ordineServiceInstance.list();
 		
 		System.out.println("Nella tabella ordine sono presenti " + result.size() + " elementi.");
+		
+		System.out.println("----------FINE TEST LIST ORDINE----------------- ");
 	}
 	
 	private static void testInsertOrdine(OrdineService ordineServiceInstance) throws Exception {
-		
+		System.out.println("----------INIZIO TEST INSERT ORDINE----------------- ");
 		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-2020");
 		Ordine ordineDaInserire = new Ordine("Andrea","Via Torregaveta");
 		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
 		
 		ordineServiceInstance.insert(ordineDaInserire);
 		
-		System.out.println(ordineServiceInstance.list().get(0).getNomeDestinatario());
+		if(ordineDaInserire.getId() == null)
+			throw new RuntimeException("test fallito.");
+		
+		System.out.println("----------FINE TEST INSERT ORDINE----------------- ");
 	}
 
 	private static void testUpdateOrdine(OrdineService ordineServiceInstance) throws Exception {
-	
+		System.out.println("----------INIZIO TEST UPDATE ORDINE----------------- ");
+
+		
+		
+
+		Date dataOrdinePrincipale = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-2020");
+		Ordine ordinePrincipale = new Ordine("Andrea","Via Torregaveta");
+		ordinePrincipale.setDataSpedizione(dataOrdinePrincipale);
+		ordineServiceInstance.insert(ordinePrincipale);
+		
 		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("31-08-2021");
-		
-		Ordine ordineDaInserire = ordineServiceInstance.list().get(0);
-		
-		ordineDaInserire.setNomeDestinatario("Giacomo");
-		ordineDaInserire.setIndirizzoSpedizione("Via Poggi");
-		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
+		ordinePrincipale.setNomeDestinatario("Giacomo");
+		ordinePrincipale.setIndirizzoSpedizione("Via Poggi");
+		ordinePrincipale.setDataSpedizione(dataOrdineDaInserire);
 		
 		
-		ordineServiceInstance.update(ordineDaInserire);
+		ordineServiceInstance.update(ordinePrincipale);
 		
-		System.out.println(ordineServiceInstance.list().get(0).getNomeDestinatario());
+		if(ordinePrincipale.getId() == null || ordinePrincipale.getNomeDestinatario() != "Giacomo")
+			throw new RuntimeException("test fallito.");
+		
+		System.out.println("----------FINE TEST UPDATE ORDINE----------------- ");
+
 	}	
 	
 	
 	private static void testAggiungiArticoloAOrdine(ArticoloService articoloServiceInstance,OrdineService ordineServiceInstance) throws Exception {
-		
+		System.out.println("----------INIZIO TEST AGGIUNGI ARTICOLO A ORDINE----------------- ");
+
 		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("21-06-2022");
 		Articolo articoloDaInserire = new Articolo("lavastoviglie",9,900);
 		articoloDaInserire.setDataInserimento(dataDiArticolo);
@@ -134,7 +152,8 @@ public class MyTest {
 		
 		ordineServiceInstance.aggiungiArticolo(articoloDaInserire, ordineDaInserire);
 		
-		
+		System.out.println("----------FINE TEST AGGIUNGI ARTICOLO A ORDINE----------------- ");
+
 		/*
 		Ordine ordine = ordineServiceInstance.list().get(2);
 		articoloDaInserire.setOrdine(ordine);
@@ -155,7 +174,8 @@ public class MyTest {
 	}
 	
 	private static void testRimuoviArticoloDaOrdine(ArticoloService articoloServiceInstance,OrdineService ordineServiceInstance) throws Exception {
-		
+		System.out.println("----------INIZIO TEST RIMUOVI ARTICOLO A ORDINE----------------- ");
+
 		/*Articolo articoloDaDisassociare = articoloServiceInstance.list().get(5);
 		Ordine ordineIdDellArticoloDaDisassociare = articoloDaDisassociare.getOrdine();
 		
@@ -182,45 +202,170 @@ public class MyTest {
 		articoloServiceInstance.insert(articoloDaInserire);
 		
 		if(articoloDaInserire != null && ordineDaInserire != null)
-			ordineServiceInstance.rimuoviArticolo(articoloDaInserire, ordineDaInserire);	
+			ordineServiceInstance.rimuoviArticolo(articoloDaInserire, ordineDaInserire);
+		
+		System.out.println("----------FINE TEST RIMUOVI ARTICOLO A ORDINE----------------- ");
+
 	}
 	
 	
-	private static void testAggiungiArticoloACategoria(ArticoloService articoloServiceInstance,CategoriaService categoriaServiceInstance)
+	private static void testAggiungiArticoloACategoria(ArticoloService articoloServiceInstance,CategoriaService categoriaServiceInstance,OrdineService ordineServiceInstance)
 			throws Exception {
+		System.out.println("----------INIZIO TEST AGGIUNGI ARTICOLO A CATEGORIA----------------- ");
+
 		
 		Categoria categoriaUno = new Categoria("dispositivi elettronici","ANP983");
+		
+		
+		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("01-09-2020");
+		Ordine ordineDaInserire = new Ordine("Giovanni","Via Ponzio");
+		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
+		
+		
+		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("10-09-2022");
+		Articolo articoloDaInserire = new Articolo("lavatrice",9,900);
+		articoloDaInserire.setDataInserimento(dataDiArticolo);
+		articoloDaInserire.setOrdine(ordineDaInserire);
+		
+		ordineServiceInstance.insert(ordineDaInserire);
+		articoloServiceInstance.insert(articoloDaInserire);
 		categoriaServiceInstance.insert(categoriaUno);
 		
-		categoriaServiceInstance.aggiungiArticolo(categoriaUno, articoloServiceInstance.list().get(0));
+		categoriaServiceInstance.aggiungiArticolo(categoriaUno, articoloDaInserire);
+		
+		if(categoriaUno.getArticoli() == null)
+			throw new Exception("test fallito");
 	}
 	
-	private static void testAggiungiCategoriaAdArticolo(ArticoloService articoloServiceInstance,CategoriaService categoriaServiceInstance)
+	private static void testAggiungiCategoriaAdArticolo(ArticoloService articoloServiceInstance,CategoriaService categoriaServiceInstance,OrdineService ordineServiceInstance)
 			throws Exception {
+		System.out.println("----------INIZIO TEST AGGIUNGI CATEGORIA A ARTICOLO----------------- ");
+
 		
-		articoloServiceInstance.aggiungiCategoria(categoriaServiceInstance.list().get(0), articoloServiceInstance.list().get(1));
+		Categoria categoriaUno = new Categoria("dispositivi elettronici","ANP983");
+		
+		
+		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("01-09-2020");
+		Ordine ordineDaInserire = new Ordine("Giovanni","Via Ponzio");
+		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
+		
+		
+		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("10-09-2022");
+		Articolo articoloDaInserire = new Articolo("lavatrice",9,900);
+		articoloDaInserire.setDataInserimento(dataDiArticolo);
+		articoloDaInserire.setOrdine(ordineDaInserire);
+		
+		ordineServiceInstance.insert(ordineDaInserire);
+		articoloServiceInstance.insert(articoloDaInserire);
+		categoriaServiceInstance.insert(categoriaUno);
+		
+		
+		
+		articoloServiceInstance.aggiungiCategoria(categoriaUno,articoloDaInserire);
+		
+		if(articoloDaInserire.getCategorie() == null)
+			throw new Exception("test fallito.");
+		
+		System.out.println("----------FINE TEST AGGIUNGI CATEGORIA A ARTICOLO----------------- ");
+
 	}
 	
 	private static void testRimuoviOrdine(OrdineService ordineServiceInstance) throws Exception {
-		ordineServiceInstance.delete(ordineServiceInstance.list().get(0));
+		System.out.println("----------INIZIO TEST RIMUOVI ORDINE----------------- ");
+
+		
+		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("01-09-2020");
+		Ordine ordineDaInserire = new Ordine("Giovanni","Via Ponzio");
+		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
+		
+		ordineServiceInstance.insert(ordineDaInserire);
+		
+		System.out.println(ordineDaInserire.getId());
+		
+		ordineServiceInstance.delete(ordineDaInserire);
+		
+		if(ordineServiceInstance.list().contains(ordineDaInserire))
+			throw new Exception("test fallito");
+			
+		
+		System.out.println("----------FINE TEST RIMUOVI ORDINE----------------- ");
+
 	}
 	
 	private static void testRimuoviCategoria(CategoriaService categoriaServiceInstance) throws Exception {
-		categoriaServiceInstance.delete(categoriaServiceInstance.list().get(0));
+		System.out.println("----------INIZIO TEST RIMUOVI CATEGORIA----------------- ");
+
+		Categoria categoriaUno = new Categoria("dispositivi elettronici","ANP983");
+		categoriaServiceInstance.insert(categoriaUno);
+		
+		System.out.println(categoriaUno.getId());
+		
+		categoriaServiceInstance.delete(categoriaUno);
+		
+		if(categoriaServiceInstance.list().contains(categoriaUno))
+			throw new Exception("test fallito.");
+		
+		System.out.println("----------FINE TEST RIMUOVI CATEGORIA----------------- ");
+
 	}
 	
-	private static void testRimuoviArticolo(ArticoloService articoloServiceInstance) throws Exception {
-		articoloServiceInstance.delete(articoloServiceInstance.list().get(2));
+	private static void testRimuoviArticolo(ArticoloService articoloServiceInstance,OrdineService ordineServiceInstance) throws Exception {
+		System.out.println("----------INIZIO TEST RIMUOVI ARTICOLO----------------- ");
+
+		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("01-09-2020");
+		Ordine ordineDaInserire = new Ordine("Giovanni","Via Ponzio");
+		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
+		
+		ordineServiceInstance.insert(ordineDaInserire);
+		
+		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("10-09-2022");
+		Articolo articoloDaInserire = new Articolo("lavatrice",9,900);
+		articoloDaInserire.setDataInserimento(dataDiArticolo);
+		articoloDaInserire.setOrdine(ordineDaInserire);
+		
+		articoloServiceInstance.insert(articoloDaInserire);
+		
+		
+		articoloServiceInstance.delete(articoloDaInserire);
+		
+		if(articoloServiceInstance.list().contains(articoloDaInserire))
+			throw new Exception("test fallito.");
+			
+		System.out.println("----------FINE TEST RIMUOVI CATEGORIA----------------- ");
+
 	}
 	
 	private static void testVoglioTuttiGliOrdiniDiQuellaCategoria(CategoriaService categoriaServiceInstance,ArticoloService articoloServiceInstance,OrdineService ordineServiceInstance) 
 			throws Exception {
 		
-		categoriaServiceInstance.aggiungiArticolo(categoriaServiceInstance.list().get(0), articoloServiceInstance.list().get(2));
+		System.out.println("----------INIZIO TEST VoglioTuttiGliOrdiniDiQuellaCategoria----------------- ");
+
+		Categoria categoriaUno = new Categoria("dispositivi elettronici","ANP983");
+		categoriaServiceInstance.insert(categoriaUno);
 		
-		List<Ordine> result = ordineServiceInstance.voglioTuttiGliOrdiniDiQuellaCategoria(categoriaServiceInstance.list().get(0));
+		Date dataOrdineDaInserire = new SimpleDateFormat("dd-MM-yyyy").parse("01-09-2020");
+		Ordine ordineDaInserire = new Ordine("Giovanni","Via Ponzio");
+		ordineDaInserire.setDataSpedizione(dataOrdineDaInserire);
 		
-		System.out.println(result.get(0).getId());
+		ordineServiceInstance.insert(ordineDaInserire);
+		
+		Date dataDiArticolo = new SimpleDateFormat("dd-MM-yyyy").parse("10-09-2022");
+		Articolo articoloDaInserire = new Articolo("lavatrice",9,900);
+		articoloDaInserire.setDataInserimento(dataDiArticolo);
+		articoloDaInserire.setOrdine(ordineDaInserire);
+		
+		articoloServiceInstance.insert(articoloDaInserire);
+		
+		
+		categoriaServiceInstance.aggiungiArticolo(categoriaUno, articoloDaInserire);
+		
+		List<Ordine> result = ordineServiceInstance.voglioTuttiGliOrdiniDiQuellaCategoria(categoriaUno);
+		
+		for(Ordine o : result)
+			System.out.println(o);
+			
+		System.out.println("----------FINE TEST VoglioTuttiGliOrdiniDiQuellaCategoria----------------- ");
+
 	}
 	
 	private static void testVoglioTutteCategorieDiArticoliConDeterminatoOrdine(CategoriaService categoriaServiceInstance,OrdineService ordineServiceInstance) 
